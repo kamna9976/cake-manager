@@ -35,6 +35,7 @@ public class CakeServiceImpl implements CakeService{
     }
 
     @Override
+    @Transactional
     public CakeModel addCake(CakeModel cakemodel) {
         Cake cake = cakeReposiroty.save(new Cake(cakemodel.getCakeName(), cakemodel.getCakeType()));
         return new CakeModel(cake.getId(), cake.getName(), cake.getType());
@@ -42,7 +43,6 @@ public class CakeServiceImpl implements CakeService{
 
     @Override
     public CakeModel updateCake(CakeModel cakeModel, Long id) {
-
         Cake cake = cakeReposiroty.findById(id).map(oldCake -> {
             oldCake.setId(cakeModel.getId());
             oldCake.setName(cakeModel.getCakeName());

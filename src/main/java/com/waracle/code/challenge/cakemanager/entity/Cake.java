@@ -10,10 +10,10 @@ import java.io.*;
 @Entity
 @Data
 @Table(name="cakes")
-public class Cake implements Serializable {
+public class Cake extends Object implements Serializable {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="id")
     private long Id;
 

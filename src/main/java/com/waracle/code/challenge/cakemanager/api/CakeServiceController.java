@@ -23,6 +23,12 @@ public class CakeServiceController {
     }
 
     @ResponseStatus(HttpStatus.OK)
+    @GetMapping("/cakes/{id}")
+    public CakeModel getCakeById(@PathVariable Long id) {
+        return cakeService.getCake(id);
+    }
+
+    @ResponseStatus(HttpStatus.OK)
     @PutMapping("/cakes/{id}")
     public CakeModel updateCake(final @RequestBody CakeModel cakeModel, @PathVariable Long id) {
         return cakeService.updateCake(cakeModel, id);
@@ -33,4 +39,12 @@ public class CakeServiceController {
     public CakeModel newCake(@RequestBody CakeModel newCake) {
         return cakeService.addCake(newCake);
     }
+
+    @ResponseStatus(HttpStatus.OK)
+    @DeleteMapping("/cakes/{id}")
+    public void delete(@PathVariable Long id){
+        cakeService.deleteCake(id);
+    }
+
+
 }
