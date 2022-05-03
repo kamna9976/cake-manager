@@ -1,5 +1,3 @@
-DROP SCHEMA if exists cake_manager_schema;
-CREATE SCHEMA cake_manager_schema;
 
 drop table if exists client_cake;
 drop table if exists cakes;
@@ -24,15 +22,17 @@ create table client_info
     email_address varchar(50)
 );
 insert into client_info (name, address, email_address) values ('Zara', 'London', 'zara@email.com' );
+insert into client_info (name, address, email_address) values ('Waracle', 'Scotland', 'waracle@email.com' );
 
 
 create table client_cake
 (
     id int AUTO_INCREMENT primary key,
-    cake_id   int references cakes(id),
+    cake_id   int ,
     client_id int references client_info(client_id)
 );
 insert into client_cake (cake_id, client_id) values (1, 1);
+insert into client_cake (cake_id, client_id) values (2, 1);
 
 
 

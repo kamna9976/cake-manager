@@ -13,7 +13,7 @@ import java.util.*;
 
 @Transactional
 @Service
-public class CakeServiceImpl implements CakeService{
+public class CakeServiceImpl implements CakeService {
 
     @Autowired
     private CakeReposiroty cakeReposiroty;
@@ -27,11 +27,10 @@ public class CakeServiceImpl implements CakeService{
         return cakeModelList;
     }
 
-    public CakeModel getCake(Long cakeId) {
+    public CakeModel getCake(long cakeId) {
         Cake cake =  cakeReposiroty.findById(cakeId)
             .orElseThrow(() -> new CakeNotFoundException(cakeId));
         return new CakeModel(cake.getId(), cake.getName(), cake.getType());
-
     }
 
     @Override
@@ -42,7 +41,7 @@ public class CakeServiceImpl implements CakeService{
     }
 
     @Override
-    public CakeModel updateCake(CakeModel cakeModel, Long id) {
+    public CakeModel updateCake(CakeModel cakeModel, long id) {
         Cake cake = cakeReposiroty.findById(id).map(oldCake -> {
             oldCake.setId(cakeModel.getId());
             oldCake.setName(cakeModel.getCakeName());

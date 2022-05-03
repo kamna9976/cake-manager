@@ -11,11 +11,11 @@ public interface CakeService {
 
     public List<CakeModel> getCakes();
 
-    public CakeModel getCake(Long cakeId);
+    public CakeModel getCake(long cakeId);
 
     public CakeModel addCake(CakeModel cakemodel);
 
-    public CakeModel updateCake(CakeModel cakeModel, Long id);
+    public CakeModel updateCake(CakeModel cakeModel, long id);
 
     public void deleteCake(Long cakeId);
 }

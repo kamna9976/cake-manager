@@ -1,9 +1,12 @@
 package com.waracle.code.challenge.cakemanager.api;
 
+import com.waracle.code.challenge.cakemanager.advice.CustomErrorHandlerControllerAdvice;
 import com.waracle.code.challenge.cakemanager.entity.Cake;
+import com.waracle.code.challenge.cakemanager.errorhandler.CakeNotFoundException;
 import com.waracle.code.challenge.cakemanager.model.CakeModel;
 import com.waracle.code.challenge.cakemanager.service.CakeService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.CustomAutowireConfigurer;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -45,6 +48,4 @@ public class CakeServiceController {
     public void delete(@PathVariable Long id){
         cakeService.deleteCake(id);
     }
-
-
 }

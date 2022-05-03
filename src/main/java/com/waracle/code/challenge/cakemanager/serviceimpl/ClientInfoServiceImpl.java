@@ -3,7 +3,7 @@ package com.waracle.code.challenge.cakemanager.serviceimpl;
 import com.waracle.code.challenge.cakemanager.entity.Cake;
 import com.waracle.code.challenge.cakemanager.entity.ClientInfo;
 import com.waracle.code.challenge.cakemanager.model.CakeModel;
-import com.waracle.code.challenge.cakemanager.model.OrderCakeModel;
+import com.waracle.code.challenge.cakemanager.model.ClientInfoCakeModel;
 import com.waracle.code.challenge.cakemanager.repository.ClientInfoRepository;
 import com.waracle.code.challenge.cakemanager.service.ClientInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,13 +17,31 @@ import java.util.*;
 public class ClientInfoServiceImpl implements ClientInfoService {
 
     @Autowired
-    ClientInfoRepository orderCakeRepository;
+    ClientInfoRepository clientInfoRepository;
 
     @Override
-    public OrderCakeModel getCakeByOrderId(long orderId) {
-        ClientInfo clientInfoList = orderCakeRepository.getClientInfoByClientId(orderId).get(0);
+    public List<ClientInfoCakeModel> getCakeByClientId(long clientId) {
+        List<ClientInfo> orderCakeList = clientInfoRepository.getClientInfoByClientId(clientId);
+        List<ClientInfoCakeModel> clientInfoCakeModelList = new ArrayList<>();
+        orderCakeList.stream().forEach(orderCake -> {
+            ClientInfoCakeModel clientInfoCakeModel = new ClientInfoCakeModel();
+            List<CakeModel> cakeModelList = new ArrayList<>();
+
+            clientInfoCakeModel.setId(orderCake.getClientId());
+            clientInfoCakeModel.setClientName(orderCake.getName());
+            clientInfoCakeModel.setClientAddress(orderCake.getAddress());
+            clientInfoCakeModel.setClientEmail(orderCake.getEmailAddress());
+
+            orderCake.getCakeList().stream().forEach(cake -> {
+                cakeModelList.add(new CakeModel(cake.getId(), cake.getName(), cake.getType()));
+            });
+            clientInfoCakeModel.setCakeModelList(cakeModelList);
+            clientInfoCakeModelList.add(clientInfoCakeModel);
+        });
+
+        /*ClientInfo clientInfoList = clientInfoRepository.getClientInfoByClientId(clientId).get(0);
         List<Cake> cakes = clientInfoList.getCakeList();
-        OrderCakeModel orderCakeModel = new OrderCakeModel();
+        ClientInfoCakeModel orderCakeModel = new ClientInfoCakeModel();
         orderCakeModel.setClientName(clientInfoList.getName());
         orderCakeModel.setClientAddress(clientInfoList.getAddress());
         orderCakeModel.setClientEmail(clientInfoList.getEmailAddress());
@@ -31,13 +49,13 @@ public class ClientInfoServiceImpl implements ClientInfoService {
         cakes.stream().forEach(cake -> {
             cakeModelList.add(new CakeModel(cake.getId(), cake.getName(), cake.getType()));
         });
-        orderCakeModel.setCakeModelList(cakeModelList);
-        return orderCakeModel;
+        orderCakeModel.setCakeModelList(cakeModelList);*/
+        return clientInfoCakeModelList;
     }
 
     @Override
     public List<CakeModel> getCakeByClientName(String clientName) {
-        List<ClientInfo> orderCakeList = orderCakeRepository.getClientInfosByName(clientName);
+        List<ClientInfo> orderCakeList = clientInfoRepository.getClientInfosByName(clientName);
         List<CakeModel> cakeModelList = new ArrayList<>();
         orderCakeList.stream().forEach(orderCake -> {
             orderCake.getCakeList().stream().forEach(cake -> {

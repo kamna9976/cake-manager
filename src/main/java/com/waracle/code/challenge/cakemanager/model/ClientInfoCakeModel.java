@@ -7,7 +7,7 @@ import lombok.Data;
 import java.util.*;
 
 @Data
-public class OrderCakeModel {
+public class ClientInfoCakeModel {
     @JsonIgnore
     private long id;
 
@@ -23,4 +23,16 @@ public class OrderCakeModel {
     @JsonProperty
     private List<CakeModel> cakeModelList;
 
+    public ClientInfoCakeModel () {
+
+    }
+
+    public ClientInfoCakeModel(long id, String clientName, String clientAddress, String clientEmail,
+                               List<CakeModel> cakeModelList) {
+        this.id = id;
+        this.clientName = clientName;
+        this.clientAddress = clientAddress;
+        this.clientEmail = clientEmail;
+        this.cakeModelList = cakeModelList;
+    }
 }

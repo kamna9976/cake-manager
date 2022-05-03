@@ -28,7 +28,7 @@ public class ClientInfo implements Serializable {
     @Column(name = "email_address")
     private String emailAddress;
 
-    @OneToMany (targetEntity = Cake.class, cascade = CascadeType.ALL)
+    @OneToMany (targetEntity = Cake.class)
     @JoinTable(name = "client_cake",
     joinColumns = @JoinColumn(name="client_id"),inverseJoinColumns =@JoinColumn(name = "id"))
     //@OnDelete(action = OnDeleteAction.CASCADE)
